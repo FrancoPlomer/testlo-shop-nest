@@ -2,7 +2,17 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query } from '@nestjs/common';
+import { 
+  Get, 
+  Post, 
+  Body, 
+  Patch, 
+  Param, 
+  Query, 
+  Delete, 
+  Controller, 
+  ParseUUIDPipe, 
+} from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
@@ -23,7 +33,7 @@ export class ProductsController {
     @Param('term') 
     term: string
   ) {
-    return this.productsService.findOne(term);
+    return this.productsService.findOnePlain(term);
   }
 
   @Patch(':id')

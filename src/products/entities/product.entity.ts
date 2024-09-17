@@ -1,4 +1,5 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ProductImage } from "./product-image.entity";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -47,6 +48,17 @@ export class Product {
         default: []
     })
     tags: string[];
+
+    @OneToMany(
+        () => ProductImage,
+        productImage => productImage.product,
+        //La siguiente propiedad es para que, si borramos una imagen de un producto, se borren las demas
+        { 
+            cascade: true,
+            eager: true 
+        }
+    )
+    images?: ProductImage[]
 
     @BeforeInsert()
     @BeforeUpdate()
