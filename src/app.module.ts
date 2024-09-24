@@ -1,9 +1,14 @@
+import { join } from 'path';
+
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsModule } from './products/products.module';
-import { CommonModule } from './common/common.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 import { SeedModule } from './seed/seed.module';
+import { FilesModule } from './files/files.module';
+import { CommonModule } from './common/common.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -25,9 +30,15 @@ import { SeedModule } from './seed/seed.module';
   
     ProductsModule,
   
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public')
+    }),
+
     CommonModule,
   
-    SeedModule
+    SeedModule,
+  
+    FilesModule
   ],
 })
 export class AppModule {}
